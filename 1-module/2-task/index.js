@@ -11,6 +11,15 @@ function print(text) {
  */
 function isValid(name) {
   // ваш код...
+  
+  //if ((name.includes(' ')) || (name.length < 4) || name == null) {  //в браузере работает, но тест не проходит
+  //  return false;
+  // } else return true;
+
+  // if (name.includes(' ') || name.length < 4 || name == '') { //в браузере работает, но тест не проходит
+  //   return false;
+  // } else return true;
+  
   if ((name !== null) && (name.indexOf(' ') == -1) && (name.length >= 4)) {
     return true;
   } else return false;
