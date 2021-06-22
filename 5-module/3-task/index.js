@@ -1,7 +1,6 @@
 function initCarousel() {
-  // ваш код...
-
-  //vol 4.0
+  // ваш код...  
+  //vol 4.0  
   let carouselInner = document.querySelector('.carousel__inner');
   let translate = 0;
   let i = 0;
@@ -13,10 +12,10 @@ function initCarousel() {
 
   document.addEventListener('click', function(event) {
     
-    if (!event.target.classList.contains('carousel__arrow') && !event.target.parentElement.classList.contains('carousel__arrow')) {
+    if (!event.target.closest('.carousel__arrow')) {
       return;
     } else {      
-      let whatArrow = event.target.classList.contains('carousel__arrow_right') || event.target.parentElement.classList.contains('carousel__arrow_right') ? 'right' : 'left';
+      let whatArrow = event.target.closest('.carousel__arrow_right') ? 'right' : 'left';
       toSlide(whatArrow);
     }
 
@@ -31,7 +30,7 @@ function initCarousel() {
       case 'left':
         carouselInner.style.transform = `translateX(${translate += slideWidth}px)`;
         arrowSwitch(i -= 1);          
-      break;
+        break;
     }    
   }
 
