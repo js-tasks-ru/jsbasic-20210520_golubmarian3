@@ -14,7 +14,7 @@
  */
 
 export default class UserTable {
-    constructor(rows) {
+  constructor(rows) {
     this.data = rows;    
     this.elem = this.render();
   }
