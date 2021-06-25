@@ -2,14 +2,18 @@ import createElement from '../../assets/lib/create-element.js';
 
 export default class ProductCard {
   constructor(product) {
-    this.product = product;    
-    this.elem = this.render();
-    this.event();
+    this.product = product;
+    this.render();
+
+    // this.elem.addEventListener('product-add', e => {
+    //   console.log('выбран:', e.detail);
+    // });
+
   }
 
   render() {
-    let card = document.createElement('DIV');
-    card.className = 'card';
+    this.elem = document.createElement('DIV');
+    this.elem.className = 'card';
     let cardTop = document.createElement('DIV');
     cardTop.className = 'card__top';
     let cardImage = document.createElement('IMG');
@@ -32,25 +36,22 @@ export default class ProductCard {
     cardButtonImg.src = '/assets/images/icons/plus-icon.svg';
     cardButton.append(cardButtonImg);
     cardBody.append(cardTitle,cardButton);
-    card.append(cardTop, cardBody);
-    return card;
+    this.elem.append(cardTop, cardBody);
+    this.elem.addEventListener('click', this.onClick.bind(this));
+    return this.elem;
   }
 
-  event() {
-    let event = new Event('product-add', {bubbles: true});
-    this.elem.dispatchEvent(event);
-    //console.log(this.product.id);
+  onClick(e) {    
+    if (e.target.closest('.card__button')){
 
-    document.addEventListener('click', function(event) {
-      if (event.target.closest('.card__button')) {
-        console.log('кнопка');
-        console.log(event);
-        console.log(this.product.id);
-      } else {
-        return;
-      }      
-    });
+      let event = new CustomEvent('product-add', {
+        detail: this.product.id,
+        bubbles: true,      
+      });
+  
+      this.elem.dispatchEvent(event);
 
+    } 
   }
 
 }

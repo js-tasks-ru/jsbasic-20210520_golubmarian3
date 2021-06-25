@@ -15,21 +15,25 @@
 
 export default class UserTable {
   constructor(rows) {
-    this.data = rows;    
-    this.elem = this.render();
+    this.data = rows;
+    this.elem = document.createElement('TABLE');    
+    this.render();
   }
 
-  render() {
-    let table = document.createElement('TABLE');
+  render() {   
     let thead = document.createElement('THEAD');
     let tbody = document.createElement('TBODY');    
 
     this.data.forEach(user => {
-      let userSrting = '';
+      let userSrting = Object.values(user)
+        .map(value => `<td>${value}</td>`)
+        .join('');    
+
+      // let userSrting = '';
            
-      for (let kay in user) {
-        userSrting += `<td>${user[kay]}</td>`;
-      }
+      // for (let kay in user) {
+      //   userSrting += `<td>${user[kay]}</td>`;
+      // }
 
       let tr = document.createElement('TR');
       tr.insertAdjacentHTML('beforeend', userSrting);
@@ -38,22 +42,27 @@ export default class UserTable {
       
     });
     
-    thead.insertAdjacentHTML('afterbegin', '<tr><th>Имя</th><th>Возраст</th><th>Зарплата</th><th>Город</th><th></th></tr>');
-    table.append(thead, tbody);
-    this.button();
-    return table; 
+    thead.insertAdjacentHTML('afterbegin', `
+      <tr>
+        <th>Имя</th>
+        <th>Возраст</th>
+        <th>Зарплата</th>
+        <th>Город</th>
+        <th></th>
+      </tr>
+    `);
+    this.elem.append(thead, tbody);
+    this.elem.addEventListener('click', this.button.bind(this));
+    //this.elem.addEventListener('click', this.button); этот вариант также работает. почем????? на вебинаре говорилось, что контекст потеряется
+    return this.elem; 
   }
 
-  button() {
-    document.addEventListener('click', function(e) {
-      
-      if (e.target.closest('button')) {
-        e.target.closest('tr').remove();
-      } else {
-        return;
-      }
-
-    });
+  button(e) {      
+    if (e.target.tagName != 'BUTTON') {
+      return;
+    } else {
+      e.target.closest('tr').remove();
+    }
   }
 
 }
