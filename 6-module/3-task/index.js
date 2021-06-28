@@ -4,8 +4,9 @@ export default class Carousel {
   constructor(slides) {
     this.slides = slides;
     this.reder();
-    this.currentSlideNumber = 0;
-    this.slidesAmount = 4;
+    // this.currentSlideNumber = 0;
+    // this.slidesAmount = 4;
+    this.slidesAmount = this.slides.length;
     this.translate = 0;
     this.i = 0;
   }
@@ -135,12 +136,14 @@ export default class Carousel {
       }    
     }
 
-    function arrowSwitch() {    
+    function arrowSwitch() {
+      console.log(this);
+      
       switch (this.i) {
         case 0:
           carouselArrowLeft.style.display = 'none';
           break;
-        case 3:
+        case this.slidesAmount - 1:
           carouselArrowRight.style.display = 'none';
           break;
         default:
