@@ -4,11 +4,6 @@ export default class ProductCard {
   constructor(product) {
     this.product = product;
     this.render();
-
-    // this.elem.addEventListener('product-add', e => {
-    //   console.log('выбран:', e.detail);
-    // });
-
   }
 
   render() {
